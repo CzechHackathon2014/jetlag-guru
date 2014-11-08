@@ -10,8 +10,7 @@ var airports = new Bloodhound({
         url: '/airportSearch?search=%QUERY',
         filter: function (res) {
             // Map the remote source JSON array to a JavaScript array
-            return $.map(res.results, function (singleRes) {
-                var i=0;
+            return $.map(res, function (singleRes) {
                 return {
                     value: singleRes.Name
                 };

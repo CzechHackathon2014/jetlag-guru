@@ -3,9 +3,11 @@
   <head>
     <title>JetLag GURU</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="/css/bootstrap.min.css">-->
+    <!--<link rel="stylesheet" href="/css/bootstrap-responsive.min.css">-->
     <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/chart.css">
     <style>
       body {
         padding-top: 60px;
@@ -13,61 +15,64 @@
     </style>
   </head>
   <body>
+    <!--<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">-->
+    <!--    <div class="container">-->
+    <!--        <div class="navbar-header">-->
+    <!--            <a class="navbar-brand" href="#">JetLag GURU</a>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--</div>-->
     <div class="container">
-      <div class="navbar navbar-fixed-top navbar-default">
-        <div class="navbar-inner">
-          <div class="pull-right">
-            <a href="#" class="brand">JetLag GURU</a>
+      <h1 class="centered">JetLag GURU</h1>
+      <hr/>
+      <form class="form-horizontal">
+        <div class="row">
+          <div class="form-group">
+            <label class="control-label col-md-4" for="departureTime">Departure time:</label>
+            <div class="col-md-6">
+              <input type="text" class="form-control" id="departureTime" placeholder="10am / 10:00">
+            </div>  
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-4" for="departureFrom">Departure from:</label>
+            <div class="col-md-6">
+              <input class="form-control airportInput typeahead" type="text" class="form-control" id="departureFrom" placeholder="LAX / Los Angeles">
+            </div>  
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-4" for="arrivalTime">Arrival time:</label>
+            <div class="col-md-6">
+              <input type="text" class="form-control" id="arrivalTime" placeholder="10am / 10:00">
+            </div>  
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-4" for="arrivalTo">Arrival to:</label>
+            <div class="col-md-6">
+              <input class="form-control airportInput typeahead" type="text" class="form-control" id="arrivalTo" placeholder="LAX / Los Angeles">
+            </div>  
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-4" for="usualSleepLength">Usual sleep (in hrs):</label>
+            <div class="col-md-6">
+              <input type="text" class="form-control" id="sleepLength" placeholder="8">
+            </div>  
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-4" for="usualSleepTime">Usual sleep time:</label>
+            <div class="col-md-6">
+              <input type="text" class="form-control" id="sleepTime" placeholder="7am">
+            </div>  
           </div>
         </div>
-      </div>
-      <div class="page-header">
-        <h1>JetLag GURU</h1>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-            <form class="form-horizontal"> <!-- class="navbar-form navbar-left" role="search" name="search" action="search" method="get"  -->
-                <div class="form-group">
-                  <label class="control-label col-md-4" for="departureTime">Departure time:</label>
-                  <div class="col-md-8">
-                    <input type="text" class="form-control" id="departureTime">
-                  </div>  
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-md-4" for="departureFrom">Departure from:</label>
-                  <div class="col-md-8">
-                    <input class="col-md-8 airportInput typeahead" type="text" class="form-control" id="departureFrom">
-                  </div>  
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-md-4" for="arrivalTime">Arrival time:</label>
-                  <div class="col-md-8">
-                    <input class="col-md-8" type="text" class="form-control" id="arrivalTime">
-                  </div>  
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-md-4" for="arrivalTo">Arrival to:</label>
-                  <div class="col-md-8">
-                    <input class="col-md-8 airportInput typeahead" type="text" class="form-control" id="arrivalTo">
-                  </div>  
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-md-4" for="arrivalTo"></label>
-                  <div class="col-md-8">
-                    <button id="btnSearch" type="submit" class="btn btn-default">Search</button>
-                  </div>
-                </div>
-            </form>
-
-            <!--<form ng-submit="send()">-->
-            <!--  <div class="span2"><input type="text" class="input-block-level" ng-model="name" ng-change="setName()" placeholder="Your Name"></div>-->
-            <!--  <div class="input-append span7">-->
-            <!--    <input type="text" class="span6" ng-model="text" placeholder="Message">-->
-            <!--    <input type="submit" class="span1 btn btn-primary" value="Send" ng-disabled="!text">-->
-            <!--  </div>-->
-            <!--</form>-->
+        <div class="row">
+          <div class="form-group">
+            <label class="control-label col-md-4"></label>
+            <div class="col-md-6">
+              <button id="btnSearch" type="submit" class="btn btn-default">Search</button>
+            </div>
+          </div>
         </div>
-      </div>
+      </form>
       <div id="schedule" class="row">
         <!--response goes here-->
         
@@ -75,11 +80,18 @@
         
       </div>
     </div>
+    <div id="footer" class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
+            <p class="muted credit navbar-text">&copy; 2014 - Atomic Laser Shark</p>
+        </div>
+    </div>
     <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+    <!--<script src="/js/bootstrap.min.js"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="/js/angular.min.js"></script>
     <script src="/js/typeahead.bundle.min.js"></script>
     <script src="/js/index.js"></script>
     <script src="/js/airportAutocomplete.js"></script>
+    <script src="/js/chart.js"></script>
   </body>
 </html>
