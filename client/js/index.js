@@ -27,7 +27,7 @@ $(function () {
             // });
 
 
-            // $("#schedule").html(data);
+            $("#schedule").html(data);
             
         }).error(function (data, textStatus) {
             alert("error");

@@ -66,7 +66,8 @@ router.post('/test', function(req, res){
 router.get('/airportSearch', function(req, res){  
   if(req.query.search != null)
   {
-    var airport = airports[req.query.search.toUpperCase()]; //IATA case
+    var ucQuery = req.query.search.toUpperCase();
+    var airport = airports[ucQuery]; //IATA case
     if(airport != null){
     	
     	var airportDetails = {
