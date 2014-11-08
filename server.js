@@ -81,22 +81,4 @@ router.get('/airportSearch', function(req, res){
   }
 });
 
-router.get('/airportSearch2', function(req, res){  
-  if(req.query.search != null)
-  {
-    var airport = airports[req.query.search.toUpperCase()]; //IATA case
-    if(airport != null){
-      airport[4] = req.query.search.toUpperCase();
-    	res.json(airport);
-    }
-    else
-    {
-    	res.json({});
-    }
-  } else
-  {
-  	res.json({});
-  }
-});
-
 server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0");
