@@ -1,10 +1,11 @@
 <!doctype html>
 <html lang="en" ng-app>
   <head>
-    <title>Chat Example</title>
+    <title>JetLag GURU</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="/css/index.css">
     <style>
       body {
         padding-top: 60px;
@@ -12,8 +13,8 @@
     </style>
   </head>
   <body>
-    <div class="container" ng-controller="ChatController">
-      <div class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+      <div class="navbar navbar-fixed-top navbar-default">
         <div class="navbar-inner">
           <div class="pull-right">
             <a href="#" class="brand">JetLag GURU</a>
@@ -25,27 +26,37 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <div class="row controls">
-            <form  class="navbar-form navbar-left"> <!-- role="search" name="search" action="search" method="get"  -->
-              <div class="form-horizontal">
+            <form class="form-horizontal"> <!-- class="navbar-form navbar-left" role="search" name="search" action="search" method="get"  -->
                 <div class="form-group">
-                  <label for="departureTime">Departure time:</label>
-                  <input type="text" class="form-control" id="departureTime">
-                </div>                
+                  <label class="control-label col-md-4" for="departureTime">Departure time:</label>
+                  <div class="col-md-8">
+                    <input type="text" class="form-control" id="departureTime">
+                  </div>  
+                </div>
                 <div class="form-group">
-                  <label for="departureFrom">Departure from:</label>
-                  <input type="text" class="form-control" id="departureFrom">
-                </div>                
+                  <label class="control-label col-md-4" for="departureFrom">Departure from:</label>
+                  <div class="col-md-8">
+                    <input class="col-md-8 airportInput" type="text" class="form-control" id="departureFrom">
+                  </div>  
+                </div>
                 <div class="form-group">
-                  <label for="arrivalTime">Arrival time:</label>
-                  <input type="text" class="form-control" id="arrivalTime">
-                </div>                
+                  <label class="control-label col-md-4" for="arrivalTime">Arrival time:</label>
+                  <div class="col-md-8">
+                    <input class="col-md-8" type="text" class="form-control" id="arrivalTime">
+                  </div>  
+                </div>
                 <div class="form-group">
-                  <label for="arrivalTo">Arrival to:</label>
-                  <input type="text" class="form-control" id="arrivalTo">
-                </div>                
-              </div>
-              <button id="btnSearch" type="submit" class="btn btn-default">Search</button>              
+                  <label class="control-label col-md-4" for="arrivalTo">Arrival to:</label>
+                  <div class="col-md-8">
+                    <input class="col-md-8 airportInput" type="text" class="form-control" id="arrivalTo">
+                  </div>  
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-md-4" for="arrivalTo"></label>
+                  <div class="col-md-8">
+                    <button id="btnSearch" type="submit" class="btn btn-default">Search</button>
+                  </div>
+                </div>
             </form>
 
             <!--<form ng-submit="send()">-->
@@ -55,13 +66,21 @@
             <!--    <input type="submit" class="span1 btn btn-primary" value="Send" ng-disabled="!text">-->
             <!--  </div>-->
             <!--</form>-->
-          </div>
         </div>
+      </div>
+      <div id="schedule" class="row">
+        <!--response goes here-->
+        
+        
+        
       </div>
     </div>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/angular.min.js"></script>
+    <script src="/js/typeahead.bundle.min.js"></script>
     <script src="/js/index.js"></script>
+    <script src="/js/airportAutocomplete.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['timeline']}]}"></script>
   </body>
 </html>
