@@ -6,13 +6,15 @@ $(function () {
         var departureFrom = $("#departureFrom").val();
         var arrivalTime = $("#arrivalTime").val();
         var arrivalTo = $("#arrivalTo").val();
+        var usualSleepLength = $("#sleepLength").val();
+        var usualSleepTime = $("#sleepTime").val();
         
-        loadSchedule(departureTime, departureFrom, arrivalTime, arrivalTo);
+        loadSchedule(departureTime, departureFrom, arrivalTime, arrivalTo, usualSleepLength, usualSleepTime);
     });
 
-    function loadSchedule(departureTime, departureFrom, arrivalTime, arrivalTo) {
+    function loadSchedule(departureTime, departureFrom, arrivalTime, arrivalTo, usualSleepLength, usualSleepTime) {
 
-        var query = {departureTime:departureTime, departureFrom:departureFrom, arrivalTime:arrivalTime, arrivalTo:arrivalTo};
+        var query = {departureTime:departureTime, departureFrom:departureFrom, arrivalTime:arrivalTime, arrivalTo:arrivalTo, usualSleepLength:usualSleepLength, usualSleepTime:usualSleepTime};
 
         $("#schedule").html("");
 

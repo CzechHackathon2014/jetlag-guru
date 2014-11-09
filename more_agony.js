@@ -1,15 +1,8 @@
 #!/usr/bin/env node
 
-var flight = {
-    dep_time : 21, //flight departs at 20:50 local, rounded to 21:00 
-    arr_time : 11, //flight arrives at 11:00 local
-    tz_diff : -6, // flying eastbound (hard) with 6 hour time difference
-    rspn : 7, // I need 7 hours of sleep per night
-    normal_wake_hour : 6 // 6am
-};
 
-flight.direction = (flight.tz_diff > 0) ? 1 : -1; // positive is westbound (easy)
-flight.solutions = [ ];
+
+
 
 function get_agony(fl, day_length, dia)
 {
@@ -108,18 +101,23 @@ function get_agony(fl, day_length, dia)
     };
 }
 
-for (var days_in_advance = 0; days_in_advance <= flight.direction * flight.tz_diff; days_in_advance++) {
-    flight.solutions.push(get_agony(flight, 23, days_in_advance)); // 23h days
-    flight.solutions.push(get_agony(flight, 26, days_in_advance)); // 26h days
-}
-
-flight.least_agony = 0;
-
-for (var solution_number = 0; solution_number < flight.solutions.length; solution_number++) {
-    var solution = flight.solutions[solution_number];
-    if (flight.least_agony === 0 || solution.agony < flight.least_agony) {
-        flight.least_agony = solution.agony;
+function calc_agony(flight) {
+    flight.direction = (flight.tz_diff > 0) ? 1 : -1; // positive is westbound (easy)
+    flight.solutions = [ ];
+    
+    for (var days_in_advance = 0; days_in_advance <= flight.direction * flight.tz_diff; days_in_advance++) {
+        flight.solutions.push(get_agony(flight, 23, days_in_advance)); // 23h days
+        flight.solutions.push(get_agony(flight, 26, days_in_advance)); // 26h days
     }
+    
+    flight.least_agony = 0;
+    
+    for (var solution_number = 0; solution_number < flight.solutions.length; solution_number++) {
+        var solution = flight.solutions[solution_number];
+        if (flight.least_agony === 0 || solution.agony < flight.least_agony) {
+            flight.least_agony = solution.agony;
+        }
+    }
+    
+    console.log(JSON.stringify(flight, null, 2));
 }
-
-console.log(JSON.stringify(flight, null, 2));

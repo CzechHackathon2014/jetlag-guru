@@ -12,7 +12,7 @@ var airports = new Bloodhound({
             // Map the remote source JSON array to a JavaScript array
             return $.map(res, function (singleRes) {
                 return {
-                    value: singleRes.Name
+                    value: singleRes.IATA +" - " +  singleRes.Name+" in "+ singleRes.City + " ["+singleRes.TimeZone+"]"
                 };
             });
         }

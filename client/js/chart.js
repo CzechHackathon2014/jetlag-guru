@@ -1,18 +1,38 @@
 
 function drawChart(data) {
     var result = "";
+    var solutionNr=0;
+    result+="<div id='accordion' class='panel-group'>";
     for (var j = 0; j < data.solutions.length; j++) {
-        var table = "<table class='table table-condensed'>";
-        
-        for (var i = 0; i < data.solutions[j].days.length; i++) {
-            for (var k = 0; k < data.solutions[j].days[i].hours.length; k++) {
-                table += addRow(data.solutions[j].days[i].hours[k], data.tz_diff);   
+        if (data.solutions[j].days) {
+            solutionNr++;
+            var table="";
+            table += "<div class='panel panel-default'>";
+            table += "<div class='panel-heading'>";
+            table += "<h4 class='panel-title'>";
+            table += "<a data-toggle='collapse' data-parent='#accordion' href='#collapse" + solutionNr+"'>";
+            table += "Solution " + solutionNr;
+            table += "</a></h4></div>";
+            table += "<div id='collapse"+solutionNr+"' class='panel-collapse collapse "+(solutionNr==1?"in":"")+"'>";
+            table += "<div class='panel-body'>";        
+            table += "<table class='table table-compact table-bordered'>";
+            table += "<thead><tr><th>Flight</th><th style='max-width: 100px;'>Departure TZ</th><th>Must be awake</th><th style='max-width: 100px;'>Arrival TZ</th><th>Sleep schedule</th></tr></thead>"
+            table += "<tbody>";
+
+            for (var i = 0; i < data.solutions[j].days.length; i++) {
+                for (var k = 0; k < data.solutions[j].days[i].hours.length; k++) {
+                    table += addRow(data.solutions[j].days[i].hours[k], data.tz_diff);   
+                }
             }
+            table += "</tbody>";
+            table += "</table>";
+            table += "</div>";
+            table += "</div>";
+            table += "</div>";
+            result += table;
         }
-        
-        table += "</table>";
-        result += table;
     }
+    result+="</div>";
     return result;
 }
 
@@ -23,20 +43,24 @@ function addRow(line, shift) {
         awakeCell(line) +
         arrivalZoneCell(line, shift) +
         // noteCell(line) +
-        // travelerClockCell(line) +
+        travelerClockCell(line) +
         // sunCell(line) +
         // earlyLateCell(line) +
         // adviceCell(line) +
         "</tr>";
 }
 
+function isNight(hour) {
+    return hour >= 20 || hour <= 6;
+}
+
 function departureZoneCell(line) {
-    return time(line.hour_number, line.dep_tz_night);
+    return time(line.hour_number);
 }
 
 function awakeCell(line) {
-    if (line.nee) {
-        return cell("awake", "NTBA");
+    if (line.need_to_be_awake) {
+        return cell("awake", "Awake");
     }
     else {
         return emptyCell();
@@ -44,13 +68,13 @@ function awakeCell(line) {
 }
 
 function arrivalZoneCell(line, shift) {
-    var arrivalHour = line.hour_number + shift;
-    arrivalHour %= 24;
-    return time(arrivalHour, line.arr_tz_night);
+    var arrivalHour = line.hour_number - shift;
+    arrivalHour = (arrivalHour + 24) % 24;
+    return time(arrivalHour);
 }
 
-function time(hour, isNight) {
-    return cell("time" + isNight ? " night" : "", ("00" + hour).slice(-2) + ":00");
+function time(hour) {
+    return cell("time" + (isNight(hour) ? " night" : ""), ("00" + hour).slice(-2) + ":00");
 }
 
 function noteCell(line) {
@@ -81,8 +105,8 @@ function sunCell(line) {
 }
 
 function travelerClockCell(line) {
-    if (line.travelerClock) {
-        return cell("flight", "Flight");
+    if (!line.need_to_be_awake && line.want_to_be_asleep) {
+        return cell("sleep", "Sleep");
     }
     else {
         return emptyCell();
@@ -100,7 +124,7 @@ function adviceCell(line) {
 
 function flightCell(line) {
     if (line.inflight) {
-        return cell("flight", "Flight");
+        return cell("flight", "<i class='glyphicon glyphicon-plane'></i>");
     }
     else {
         return emptyCell();

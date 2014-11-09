@@ -1,11 +1,25 @@
 .awake {
-    background-color: red;
+    background-color: #E69980;
 }
 
 .flight {
-    background-color: yellow;
+    background-color: #FFE680;
 }
 
 .night {
-    background-color: purple;
+    background-color: #BF94BF;
+    color: white;
+}
+
+.sleep {
+    background-color: #CCF2CC;
+}
+
+table {
+    width: 400px;
+}
+
+table td, table th {
+    text-align: center;
+	/*min-width: 50px;*/
 }
